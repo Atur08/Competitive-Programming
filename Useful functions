@@ -1,0 +1,421 @@
+#include<iostream> 
+using namespace std; 
+#define ll long long
+
+// to use gcd funtion use __gcd(n,m)
+
+// Function to return
+// gcd of a and b
+ll gcd(ll a, ll b)
+{
+    if (a == 0)
+        return b;
+    return gcd(b % a, a);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// PROGRAM TO FIND THE NO. OF PRIME NUMBERS AND ALSO WHAT THEY ARE TILL A GIVEN n
+
+// MY METHOD USING SIEVE OF ERATOSTHENES
+
+vector<bool> pri; // is_prime
+vector<ll> prime;
+void printprime(ll n)
+{
+    pri.resize(n+1, 1);
+    pri[0]=0, pri[1]=0;
+    for (ll i=2; i*i<=n; i++)
+    {
+        if(pri[i])
+        {
+            for(ll j=i*i; j<=n; j+=i) pri[j]=0;
+        }
+    }
+    f(0, n+1) if(pri[i]) prime.push_back(i);
+} 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// CPP program to find the MOST FREQUENT element in an array.
+
+pair<ll,ll> mostFrequent(vector<ll> a)
+{
+    ll cnt=0, ans=0; 
+    ll n=a.size(); 
+    f(0, n)
+    {
+        auto it1=ub(a, a[i]);
+        auto it2=lb(a, a[i]);
+        if(it1-it2>cnt) cnt=it1-it2, ans=a[i]; 
+        i=it1-a.bg-1; 
+    }
+    return {ans, cnt}; 
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// HOW TO CONVERT STRING TO LONG LONG
+
+ll n = stoll(string);
+
+// HOW TO CONVERT LONG LONG TO STRING
+
+string s = to_string(ll); 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// C++ program to find if it is possible to
+// write a number n as product of exactly k
+// positive numbers greater than 1.
+
+
+// prints k factors of n if n can be written
+// as multiple of k numbers. Else prints -1.
+void kFactors(ll n, ll k)
+{
+    // A vector to store all prime factors of n
+    vector<ll> P;
+
+    // Insert all 2's in vector
+    while (n % 2 == 0)
+    {
+        P.push_back(2);
+        n /= 2;
+    }
+
+    // n must be odd at this poll
+    // So we skip one element (i = i + 2)
+    for (ll i = 3; i * i <= n; i = i + 2)
+    {
+        while (n % i == 0)
+        {
+            n = n / i;
+            P.push_back(i);
+        }
+    }
+
+    // This is to handle when n > 2 and
+    // n is prime
+    if (n > 2)
+        P.push_back(n);
+
+    // If size(P) < k, k factors are not possible
+    if (P.size() < k)
+    {
+        cout << "-1" << endl;
+        return;
+    }
+
+    // printing first k-1 factors
+    for (ll i = 0; i < k - 1; i++)
+        cout << P[i] << ", ";
+
+    // calculating and printing product of rest
+    // of numbers
+    ll product = 1;
+    for (ll i = k - 1; i < P.size(); i++)
+        product = product * P[i];
+    cout << product << endl;
+}
+
+// Driver program to test above function
+ll main()
+{
+    ll n = 54, k = 3;
+    kFactors(n, k);
+    return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// C program to demonstrate working of memset()
+#include <stdio.h>
+#include <string.h>
+
+ll main()
+{
+    char str[50] = "GeeksForGeeks is for programming geeks.";
+    printf("\nBefore memset(): %s\n", str);
+
+    // Fill 8 characters starting from str[13] with '.'
+    memset(str + 13, '.', 8 * sizeof(char));
+
+    printf("After memset(): %s", str);
+    return 0;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Returns true if str1[] is a subsequence of str2[]
+// m is length of str1 and n is length of str2
+// A subsequence is a sequence that can be derived from another sequence
+// by deleting some elements without changing the order of the remaining elements 
+
+ bool isSubSequence(string str1, string str2, ll m, ll n)
+{
+    // Base Cases
+    if (m == 0)
+        return true;
+    if (n == 0)
+        return false;
+
+    // If last characters of two strings are matching
+    if (str1[m - 1] == str2[n - 1])
+        return isSubSequence(str1, str2, m - 1, n - 1);
+
+    // If last characters are not matching
+    return isSubSequence(str1, str2, m, n - 1);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+// C function for extended Euclidean Algorithm
+ll gcdExtended(ll a, ll b, ll *x, ll  *y)
+{
+    if(!a) {*y=1, *x=0; return b;} 
+    ll x1,y1; 
+    ll gcd=gcdExtended(ll a, ll b, ll &x1, ll &y1); 
+    *x=y1-(b/a)*x1; 
+    *y=x1; 
+    return gcd; 
+}
+
+// Function to find modulo inverse of a
+ll modInverse(ll a, ll m)
+{
+    ll x, y;
+    ll g = gcdExtended(a, m, &x, &y);
+    if (g != 1) return -1;
+    else return (x % m + m) % m;
+}
+
+// Function to compute a/b under modulo m
+ll modD(ll a, ll b, ll m)
+{
+    ll inv = modInverse(b, m);
+    if (inv == -1) return -1;
+    else return modM(inv, a);
+}
+
+ll comb(ll n, ll k)
+{
+    if (k > n) return 0;
+    return modD(fact[n], modM(fact[n - k], fact[k], N), N);
+}
+
+ll power(ll a, ll b, ll p)
+{
+    if (b == 0)
+        return 1;
+    ll c = power(a, b / 2, p);
+    if (b % 2 == 0)
+        return ((c * c) % p);
+    else
+        return ((((c * c) % p) * a) % p);
+}
+
+ll ld(ll a, ll b)
+{
+    if (a < 0)
+        return -1 * gdp(abs(a), b);
+    if (a % b == 0)
+        return a;
+    return (a + (b - a % b));
+} // least number >=a divisible by b
+ll gd(ll a, ll b)
+{
+    if (a < 0)
+        return (-1 * ld(abs(a), b));
+    return (a - (a % b));
+} // greatest number <= a divisible by b
+
+
+/////////////////////////////////////////////////////////////////////////
+
+//SEGMENT TREES
+vector<ll> a, segTree;
+ll n; 
+
+void build(ll node, ll start, ll end)
+{
+    if(start==end) segTree[node]=a[start]; 
+    else
+    {
+        ll mid=(start+end)/2; 
+        build(2*node, start, mid); 
+        build(2*node+1, mid+1, end); 
+        if((n-(ll)log2(node))&1) segTree[node]=segTree[2*node]|segTree[2*node+1]; 
+        else segTree[node]=segTree[2*node]^segTree[2*node+1]; 
+    }
+}
+
+void update(ll node, ll start, ll end, ll idx, ll val)
+{
+    if(start == end){ a[idx]=val; segTree[node]=val;}
+    else
+    {
+        ll mid=(start+end)/2; 
+        if(idx>=start&&idx<=mid) update(2*node, start, mid, idx, val); 
+        else update(2*node+1, mid+1, end, idx, val); 
+        if((n-(ll)log2(node))&1) segTree[node]=segTree[2*node]|segTree[2*node+1]; 
+        else segTree[node]=segTree[2*node]^segTree[2*node+1];
+    }
+}
+
+ll query(ll node, ll start, ll end, ll l, ll r)
+{
+    if(r<start&&l>end) return 0; 
+    else if(l<=start&&r>=end) return segTree[node]; 
+    ll mid=(start+end)/2;
+    ll p1=query(2*node, start, mid, l, r); 
+    ll p2=query(2*node+1, mid+1, end, l, r); 
+    return p1+p2; 
+}
+
+ //////////////////////////////////////////////////////////////////////
+// WATCH TUSHAR ROY VID ON TOPOLOGICAL SORT 
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// KMP Algorithm for Pattern Searching
+// o(n) time complexity 
+// to search for a substring in a string
+
+vector<ll> lps; 
+
+void computeLPS(string s)
+{
+    ll n=s.length(); 
+    lps.assign(n,0); 
+    ll i=1,j=0; 
+    while(i<n)
+    {
+        if(s[i]==s[j]) lps[i]=j+1, i++,j++; 
+        else
+        {
+            if(!j) lps[i]=0,i++; 
+            else j=lps[j-1];            
+        }
+    }
+}
+
+ll kmp(string s, string t)
+{
+    computeLPS(t); 
+    ll n=s.length(); 
+    ll m=t.length(); 
+    ll i=0,j=0;
+    // i s text
+    // j t pattern 
+    while(i<n)
+    {
+        if(s[i]!=t[j])
+        {
+            if(j) j=lps[j-1]; 
+            else i++; 
+        } 
+        else i++,j++; 
+        if(j==m) return i-j;   
+    }
+    return -1;
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////// 
+
+// DFS
+
+void dfs(ll u)
+{
+    vis[u]=1; 
+    for(auto x:v[u]) if(!vis[x]) dfs(x); 
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// BFS
+
+void bfs(ll u)
+{
+    queue<ll> q; 
+    q.push(u); 
+    vis[u]=1; 
+    while(!q.empty())
+    {
+        ll f=q.front(); 
+        vis[f]=1; 
+        q.pop(); 
+        for(auto x:v[f]) if(!vis[x]) q.push(x); 
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// TO IMPLEMENT nCr function(bc) ?// combination // permutation // pnc
+// DONT FORGET TO CALL FACTORIAL IN SOLVE FUNCTION  
+ll fact[S];
+
+void factorial()
+{
+    fact[0]=1; 
+    f(1, S) fact[i] = modM(fact[i - 1], i);
+}
+
+ll inv(ll n)
+{
+    return power(n, N - 2);
+}
+
+ll nCk(ll n, ll k)
+{
+    if(n<0||k<0||n<k) return 0; 
+    return modM(fact[n],modM(inv(fact[n-k]),inv(fact[k]))); 
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// BINARY SEARCH FOR AN INCREASING FUNCTION
+
+ll r=1e13, l=0; 
+while(r>=l&&NC--)
+{
+    ll mid=(r+l)/2; 
+    if(func(mid)>m) r=mid-1; 
+    else l=mid+1; 
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// KOSARAJU'S ALGROITHM - SEE MY SOLUTION TO THE QUES 427C
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//#define PI 3.14159265358979323846264338
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//FINDING A CENTEROID/CENTEROIDS OF A TREE
+// CENTROID
+
+vector<ll> cen;
+vector<ll> sz;
+ll n; 
+
+void dfs(ll u, ll prev)
+{
+    sz[u]=1; 
+    bool f=true; 
+
+    for(auto x:v[u])
+    {
+        if(x!=prev)
+        {
+            dfs(x, u); 
+            sz[u]+=sz[x]; 
+            if(sz[x]>n/2) f=false; 
+        }
+    }
+    if(n-sz[u]>n/2) f=false; 
+    if(f) cen.push_back(u); 
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
