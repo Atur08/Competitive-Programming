@@ -1,2 +1,2 @@
 # Competitive-Programming
-I share useful resources related to CP that I come across. 
+Have shared resources related to CP that I found useful.
