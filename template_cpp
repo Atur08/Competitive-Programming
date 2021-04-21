@@ -1,29 +1,11 @@
 //AUTHOR : ATUR GUPTA (arthur_08 on CF)
 
-#include <set>
-#include <map>
-#define NDEBUG
-#include <stack>
-#include <queue>
-#include <cmath>
-#include <bitset>
-#include <cstdio>
-#include <vector>
-#include <string>
-#include <numeric>
-#include <cassert>
-#include <iomanip>
-#include <cstring>
-#include <utility>
-#include <iostream>
-#include <algorithm>
-#include <unordered_set>
-#include <unordered_map>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 #ifndef ONLINE_JUDGE
-#include "/Users/aturgupta/Desktop/CP/MyDebug.h"
+#include <MyDebug.h>
 #else
 #define debug(x...) 73
 #endif
@@ -42,10 +24,10 @@ using namespace std;
 #define all(v) v.begin(), v.end()
 #define minv(v) *min_element(all(v))
 #define maxv(v) *max_element(all(v))
-#define sumv(v) accumulate(all(v),0)
 #define ub(a, x) upper_bound(all(a), x)
 #define lb(a, x) lower_bound(all(a), x)
 #define fill(a) memset(a, 0, sizeof(a))
+#define sumv(v) accumulate(all(v),(ll)0)
 #define fill1(a) memset(a, -1, sizeof(a))
 #define f(a, b) for (ll i = a; i < b; i++)
 #define fj(a, b) for (ll j = a; j < b; j++)
@@ -72,7 +54,7 @@ ll max3(ll a, ll b, ll c) { return max(a, max(b , c)); }
 ll ceil1(ll x, ll y) { if(x % y) return (x + y) / y; else return x / y; }
 
 ll NC = 100; 
-ll N = 1e7 + 9;
+ll N = 1e9 + 7;
 const ll S = 3e5 + 7;
 
 ll mod(ll n);
